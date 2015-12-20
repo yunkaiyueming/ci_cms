@@ -2,6 +2,7 @@
 
 class MY_Controller extends CI_Controller {
 	public $sidebar_file = "";
+	public $main_file = "";
 
 	public function __construct() {
 		//error_reporting(0);
@@ -11,7 +12,7 @@ class MY_Controller extends CI_Controller {
 
 	protected function render_v2($main_file, $view_data){
 		$this->load->view('view_header', $view_data);
-		$this->laod->view($this->$sidebar_file, $view_data);
+		//$this->laod->view($this->$sidebar_file, $view_data);
 		$this->load->view($main_file, $view_data);
 		$this->load->view('view_footer');
 	}
@@ -24,43 +25,43 @@ class MY_Controller extends CI_Controller {
 		$menus = array(
 			array(
 				'desc' => '用户栏目',
-				'active_pattern' => '/week_report/i',
+				'active_pattern' => '/user/i',
 				'icon' => 'icon-book',
 				'level2_menus' => array(
 					array(
 						'desc' => '用户管理',
 						'url' => 'user/get_user_infos',
-						'active_pattern' => '/week_report\/report_list/i',
+						'active_pattern' => '/user\/get_user_infos/i',
 					),
 					array(
 						'desc' => '权限设置',
-						'url' => 'week_report/groups_report_list',
-						'active_pattern' => '/week_report\/groups_report_list/i',
+						'url' => 'user/privilege_list',
+						'active_pattern' => '/user\/privilege_list/i',
 					),
 				),
 			),
 
 			array(
 				'desc' => '书籍栏目',
-				'active_pattern' => '/week_report/i',
+				'active_pattern' => '/book/i',
 				'icon' => 'icon-book',
 				'level2_menus' => array(
 					array(
 						'desc' => '书籍管理',
 						'url' => 'book/get_book_infos',
-						'active_pattern' => '/week_report\/report_list/i',
+						'active_pattern' => '/book\/report_list/i',
 					),
 					array(
 						'desc' => '书籍配置',
-						'url' => 'week_report/groups_report_list',
-						'active_pattern' => '/week_report\/groups_report_list/i',
+						'url' => 'book/book_config',
+						'active_pattern' => '/book\/book_config/i',
 					),
 				),
 			),
 
 			array(
 				'desc' => '文件栏目',
-				'active_pattern' => '/week_report/i',
+				'active_pattern' => '/file/i',
 				'icon' => 'icon-book',
 				'level2_menus' => array(
 					array(
@@ -75,7 +76,21 @@ class MY_Controller extends CI_Controller {
 					),
 				),
 			),
+
+			array(
+				'desc' => '图片管理',
+				'active_pattern' => '/week_report/i',
+				'icon' => 'icon-book',
+				'level2_menus' => array(
+					array(
+						'desc' => '验证码',
+						'url' => 'file/get_file_by_dir',
+						'active_pattern' => '/week_report\/report_list/i',
+					),
+				),
+			),
+
 		);
+		return $menus;
 	}
-	
 }
