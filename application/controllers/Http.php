@@ -11,9 +11,9 @@ class Http extends MY_Controller {
 	}
 
 	public function http_curl(){
-		$url="http://www.baidu.com";
-		$data['info']=get_file_curl($url);
-		$data['menus']=$this->get_menu_data();
+		$url = "http://www.baidu.com";
+		$data['info'] = get_file_curl($url);
+		$data['menus'] = $this->get_menu_data();
 		$this->render_v2('http/view_http_curl', $data);
 	} 
 	
