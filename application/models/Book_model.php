@@ -1,18 +1,16 @@
 <?php
 
-class Book_model extends CI_Model {
+class Book_model extends MY_Model {
 
 	public $table_name = "book";
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->database();
 	}
 
-	//查询所有用户信息数据
+	//查询所有书籍信息数据
 	public function get_all_book_info() {
-		$query = $this->db->get($this->table_name);
-		return $query->result_array();
+		return $this->get_data_info();
 	}
 
 	//添加书籍数据
@@ -35,6 +33,13 @@ class Book_model extends CI_Model {
 	public function get_book_info_byid($id) {
 		$query = $this->db->get_where($this->table_name, array('id' => $id));
 		return $query->row_array();
+	}
+
+	public function ajax_get_book_by_type($book_type) {
+		$this->db->like('type_name', $book_type);
+		$query=$this->db->get($this->table_name);
+		//echo $this->db->last_query();exit;
+		return $query->result_array();
 	}
 
 }
