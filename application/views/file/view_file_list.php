@@ -58,21 +58,3 @@
 		</table>
 	</div>
 </div>
-
-<div>
-	<ul>
-		<li class="active">
-			<a href="<?php echo base_url('file/file_post')?>">
-			<i class="icon-double-angle-right"></i>
-					文件上传
-			</a>
-			<br/>
-			
-			<a href="<?php echo base_url('file/file_down')?>">
-			<i class="icon-double-angle-right"></i>
-					文件下载
-			</a>
-			</li>
-
-	</ul>
-</div>

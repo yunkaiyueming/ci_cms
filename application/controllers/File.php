@@ -2,20 +2,11 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class File extends CI_Controller {
+class File extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper('url');
-		$this->_check_login();
-	}
-
-	private function _check_login() {
-		session_start();
-		//print_r($_SESSION);exit;
-		if (empty($_SESSION['uid'])) {
-			redirect('login/index');
-		}
 	}
 
 	//根据一个目录获取这个目录下的所有的文件信息
@@ -46,69 +37,10 @@ class File extends CI_Controller {
 			}
 		}
 
-		$menus = array(
-			array(
-				'desc' => '用户栏目',
-				'active_pattern' => '/week_report/i',
-				'icon' => 'icon-book',
-				'level2_menus' => array(
-					array(
-						'desc' => '用户管理',
-						'url' => 'user/get_user_infos',
-						'active_pattern' => '/week_report\/report_list/i',
-					),
-					array(
-						'desc' => '权限设置',
-						'url' => 'week_report/groups_report_list',
-						'active_pattern' => '/week_report\/groups_report_list/i',
-					),
-				),
-			),
-			array(
-				'desc' => '书籍栏目',
-				'active_pattern' => '/week_report/i',
-				'icon' => 'icon-book',
-				'level2_menus' => array(
-					array(
-						'desc' => '书籍管理',
-						'url' => 'book/get_book_infos',
-						'active_pattern' => '/week_report\/report_list/i',
-					),
-					array(
-						'desc' => '书籍配置',
-						'url' => 'week_report/groups_report_list',
-						'active_pattern' => '/week_report\/groups_report_list/i',
-					),
-				),
-			),
-			array(
-				'desc' => '文件栏目',
-				'active_pattern' => '/week_report/i',
-				'icon' => 'icon-book',
-				'level2_menus' => array(
-					array(
-						'desc' => '文件管理',
-						'url' => 'file/get_file_by_dir',
-						'active_pattern' => '/week_report\/report_list/i',
-					),
-					array(
-						'desc' => '文件配置',
-						'url' => 'week_report/groups_report_list',
-						'active_pattern' => '/week_report\/groups_report_list/i',
-					),
-				),
-			),
-		);
-
+		$menus = $this->get_menu_data();
 		$view_data['menus'] = $menus;
 		$view_data['file_infos'] = $file_infos;
-		return $this->render($view_data);
-	}
-
-	public function render($view_data) {
-		$this->load->view('view_header', $view_data);
-		$this->load->view('file/view_file_list', $view_data);
-		$this->load->view('view_footer');
+		return $this->render_v2('file/view_file_list', $view_data);
 	}
 
 	//迭代得到一个目录下的所有的文件
@@ -125,7 +57,7 @@ class File extends CI_Controller {
 			foreach ($tmp_dirs as $tmp_dir) {
 				//Array ( [0] => . [1] => .. [2] => 1.txt [3] => 222.txt [4] => 3 )因为用scandir($dir_path)返回的数组中会有这两个，所有要去除这两个
 				if ($tmp_dir != '.' && $tmp_dir != '..') {
-					
+
 					$tmp_file_path = $dir_path . "/" . $tmp_dir; //echo $tmp_file_path."<br>";
 					//如果这个子文件还是一个目录，则迭代查询它里面的子文件
 					if (is_dir($tmp_file_path)) {
@@ -141,64 +73,9 @@ class File extends CI_Controller {
 	}
 
 	function file_post() {
-		$menus = array(
-			array(
-				'desc' => '用户栏目',
-				'active_pattern' => '/week_report/i',
-				'icon' => 'icon-book',
-				'level2_menus' => array(
-					array(
-						'desc' => '用户管理',
-						'url' => 'user/get_user_infos',
-						'active_pattern' => '/week_report\/report_list/i',
-					),
-					array(
-						'desc' => '权限设置',
-						'url' => 'week_report/groups_report_list',
-						'active_pattern' => '/week_report\/groups_report_list/i',
-					),
-				),
-			),
-			array(
-				'desc' => '书籍栏目',
-				'active_pattern' => '/week_report/i',
-				'icon' => 'icon-book',
-				'level2_menus' => array(
-					array(
-						'desc' => '书籍管理',
-						'url' => 'book/get_book_infos',
-						'active_pattern' => '/week_report\/report_list/i',
-					),
-					array(
-						'desc' => '书籍配置',
-						'url' => 'week_report/groups_report_list',
-						'active_pattern' => '/week_report\/groups_report_list/i',
-					),
-				),
-			),
-			array(
-				'desc' => '文件栏目',
-				'active_pattern' => '/week_report/i',
-				'icon' => 'icon-book',
-				'level2_menus' => array(
-					array(
-						'desc' => '文件管理',
-						'url' => 'file/get_file_by_dir',
-						'active_pattern' => '/week_report\/report_list/i',
-					),
-					array(
-						'desc' => '文件配置',
-						'url' => 'week_report/groups_report_list',
-						'active_pattern' => '/week_report\/groups_report_list/i',
-					),
-				),
-			),
-		);
+		$menus = $this->get_menu_data();
 		$view_data['menus'] = $menus;
-
-		$this->load->view('view_header', $view_data);
-		$this->load->view('file/view_dropzone', $view_data);
-		$this->load->view('view_footer');
+		$this->render_v2('file/view_dropzone', $view_data);
 	}
 
 	//处理上传好的文件（把文件移到自定义的位置，对文件进行所有需要的处理操作）
@@ -211,25 +88,24 @@ class File extends CI_Controller {
 		} else {
 			//处理提交表单逻辑
 			$array_files = $_FILES;
-			foreach($array_files['myfile'] as $file_infos) {
-				echo $file_infos.'<br/>';
+			foreach ($array_files['myfile'] as $file_infos) {
+				echo $file_infos . '<br/>';
 			}
-			move_uploaded_file($array_files['myfile']['tmp_name'],'G:/dis_files/'.time().'.txt');
+			move_uploaded_file($array_files['myfile']['tmp_name'], 'G:/dis_files/' . time() . '.txt');
 			//$file_content=  file_get_contents($array_files['myfile']['tmp_name']);
 			//echo $file_content.'<br/>';
-			file_put_contents($array_files['myfile']['tmp_name'], 'ssssssssssss',FILE_APPEND );
+			file_put_contents($array_files['myfile']['tmp_name'], 'ssssssssssss', FILE_APPEND);
 			//$files_content=  file_get_contents($array_files['myfile']['tmp_name']);
 			//echo $files_content;
-			
 		}
 	}
-	
+
 	//下载图片
-	function file_down(){
-		$filename='G:\phpweb\ci_cms\images\111.jpg';
+	function file_down() {
+		$filename = 'G:\phpweb\ci_cms\images\111.jpg';
 		header('Content-Type:image/gif');
-		header('Content-Disposition:attachment;filename="'.$filename.'"');
-		header('Content-Length:'.  filesize($filename));
+		header('Content-Disposition:attachment;filename="' . $filename . '"');
+		header('Content-Length:' . filesize($filename));
 		readfile($filename);
 	}
 
