@@ -22,67 +22,14 @@ class Book extends CI_Controller {
 		$this->load->model('Book_model');
 		$book_infos = $this->Book_model->get_all_book_info();
 		$view_data['book_infos'] = $book_infos;
-		
-		
+
 		$item_descs = array('id'=>'id','book_name'=>'书名', 'type_name'=>'类型名', 'author'=>'作者','publish_date'=>'出版日期','ope'=>'操作');
 		$view_data['item_descs'] = $item_descs;
 		$view_data['title_name'] = '用户管理';
 		
-		$menus = array(
-			array(
-				'desc' => '用户栏目',
-				'active_pattern' => '/week_report/i',
-				'icon' => 'icon-book',
-				'level2_menus' => array(
-					array(
-						'desc' => '用户管理',
-						'url' => 'user/get_user_infos',
-						'active_pattern' => '/week_report\/report_list/i',
-					),
-					array(
-						'desc' => '权限设置',
-						'url' => 'week_report/groups_report_list',
-						'active_pattern' => '/week_report\/groups_report_list/i',
-					),
-				),
-			),
-			array(
-				'desc' => '书籍栏目',
-				'active_pattern' => '/week_report/i',
-				'icon' => 'icon-book',
-				'level2_menus' => array(
-					array(
-						'desc' => '书籍管理',
-						'url' => 'book/get_book_infos',
-						'active_pattern' => '/week_report\/report_list/i',
-					),
-					array(
-						'desc' => '书籍配置',
-						'url' => 'week_report/groups_report_list',
-						'active_pattern' => '/week_report\/groups_report_list/i',
-					),
-				),
-			),
-			array(
-				'desc' => '文件栏目',
-				'active_pattern' => '/week_report/i',
-				'icon' => 'icon-book',
-				'level2_menus' => array(
-					array(
-						'desc' => '文件管理',
-						'url' => 'file/get_file_by_dir',
-						'active_pattern' => '/week_report\/report_list/i',
-					),
-					array(
-						'desc' => '文件配置',
-						'url' => 'week_report/groups_report_list',
-						'active_pattern' => '/week_report\/groups_report_list/i',
-					),
-				),
-			),
-		);
-	
+		$menus = $this->get_menu_data();
 		$view_data['menus'] = $menus;
+		
 		return $this->render($view_data);
 	}
 	
