@@ -60,14 +60,13 @@ class User_model extends CI_Model {
 		$info = $query->result_array();
 		return $info;
 	}
-	
-	public function get_user_by_name_pwd($user_name, $pwd){
+
+	public function get_user_by_name_pwd($user_name, $pwd) {
 		$data = array(
-			'user_name'=>$user_name,
-			'pwd'=>$pwd,
+			'user_name' => $user_name,
+			'pwd' => $pwd,
 		);
 		$query = $this->db->get_where($this->table_name, $data);
-		//echo $this->db->last_query();
 		return $query->row_array();
 	}
 

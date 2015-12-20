@@ -8,6 +8,7 @@ class MY_Controller extends CI_Controller {
 		//error_reporting(0);
 		parent::__construct();
 		session_start();
+		$this->_check_login();
 	}
 
 	protected function render_v2($main_file, $view_data){
@@ -17,9 +18,12 @@ class MY_Controller extends CI_Controller {
 		$this->load->view('view_footer');
 	}
 
-	public function check_login(){
-
+	public function _check_login(){
+		if(empty($_SESSION['uid'])){
+			redirect('login/index');
+		}
 	}
+	
 
 	public function get_menu_data(){
 		$menus = array(
@@ -49,7 +53,7 @@ class MY_Controller extends CI_Controller {
 					array(
 						'desc' => '书籍管理',
 						'url' => 'book/get_book_infos',
-						'active_pattern' => '/book\/report_list/i',
+						'active_pattern' => '/book\/get_book_infos/i',
 					),
 					array(
 						'desc' => '书籍配置',
@@ -67,12 +71,22 @@ class MY_Controller extends CI_Controller {
 					array(
 						'desc' => '文件管理',
 						'url' => 'file/get_file_by_dir',
-						'active_pattern' => '/week_report\/report_list/i',
+						'active_pattern' => '/file\/get_file_by_dir/i',
 					),
 					array(
 						'desc' => '文件配置',
 						'url' => 'week_report/groups_report_list',
 						'active_pattern' => '/week_report\/groups_report_list/i',
+					),
+					array(
+						'desc' => '文件上传',
+						'url' => 'file/file_post',
+						'active_pattern' => '/file\/file_post/i',
+					),
+					array(
+						'desc' => '文件下载',
+						'url' =>'file/file_down' ,
+						'active_pattern' => '/file\/file_down/i',
 					),
 				),
 			),
@@ -85,7 +99,7 @@ class MY_Controller extends CI_Controller {
 					array(
 						'desc' => '验证码',
 						'url' => 'file/get_file_by_dir',
-						'active_pattern' => '/week_report\/report_list/i',
+						'active_pattern' => '/file\/get_file_by_dir/i',
 					),
 				),
 			),
@@ -94,3 +108,8 @@ class MY_Controller extends CI_Controller {
 		return $menus;
 	}
 }
+
+
+					
+
+
