@@ -1,19 +1,18 @@
 <?php
 
-class User_model extends CI_Model {
+class User_model extends MY_Model {
 
 	public $table_name = "user";
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->database();
 	}
 
 	//查询所有数据
 	public function get_all_user_info() {
-		$this->db->order_by('id', 'desc');
-		$query = $this->db->get($this->table_name);
-		return $query->result_array();
+		$order_param = array('field'=>'id', 'sort'=>'desc');
+		$data=$this->get_data_info($order_param);
+		return $data;
 	}
 
 	//添加用户数据

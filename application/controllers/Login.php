@@ -13,9 +13,9 @@ class Login extends MY_Controller {
 	}
 
 	function index() {
-		if (empty($_SESSION['uid'])) {
-			$this->render('');
-		} else {
+		if(empty($_SESSION['uid'])){
+			return $this->render_v2('login/view_login');
+		}else{
 			redirect('user/get_user_infos');
 		}
 	}

@@ -8,7 +8,8 @@ class MY_Controller extends CI_Controller {
 		//error_reporting(0);
 		parent::__construct();
 		session_start();
-		$this->_check_login();
+		
+		$this->load->helper('url');
 	}
 
 	protected function render_v2($main_file, $view_data){
