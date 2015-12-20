@@ -2,11 +2,12 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Login extends CI_Controller {
+class Login extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
 		session_start();
+		error_reporting(0);
 		$this->load->helper('url');
 		$this->load->model('User_model');
 		$this->load->library('ValidateCode');
