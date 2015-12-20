@@ -5,13 +5,6 @@ class User extends MY_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->helper('url');
-		$this->_check_login();
-	}
-	
-	private function _check_login(){
-		if(empty($_SESSION['uid'])){
-			redirect('login/index');
-		}
 	}
 	
 	public function index() {
@@ -29,10 +22,8 @@ class User extends MY_Controller {
 		$item_descs = array('id'=>'id','name'=>'用户名', 'pwd'=>'方法', 'ope'=>'操作');
 		$view_data['item_descs'] = $item_descs;
 		$view_data['title_name'] = '用户管理';
-		
 		$menus = $this->get_menu_data();
 		$view_data['menus'] = $menus;
-
 		return $this->render_v2('user/view_user_list2', $view_data);
 	}
 
@@ -40,10 +31,8 @@ class User extends MY_Controller {
 		$this->load->helper('url');
 		$this->load->model('User_model');
 		$view_data['title_name'] = '用户管理';
-		
 		$menus = $this->get_menu_data();
 		$view_data['menus'] = $menus;
-
 		$this->render_v2('user/view_user_add', $view_data);
 	}
 
@@ -77,10 +66,8 @@ class User extends MY_Controller {
 		$this->load->model('User_model');
 		$view_data['user_info']=$this->User_model->get_user_info_byid($_GET['id']);
 		$view_data['title_name'] = '用户管理';
-		
 		$menus = $this->get_menu_data();
 		$view_data['menus'] = $menus;
-
 		return $this->render_v2('user/view_user_update',$view_data);
 	}
 
@@ -91,7 +78,6 @@ class User extends MY_Controller {
 			'user_name' => $_POST['user_name'],
 			'pwd' => $_POST['pwd']
 		);
-
 		$this->load->model('User_model');
 		$view_data['count']=  $this->User_model->update_user_info($id,$data);
 		if($view_data['count']>0){
@@ -119,10 +105,8 @@ class User extends MY_Controller {
 		$data3=$this->User_model->get_user_info_byid3('4');
 		print_r($data1);
 		echo '<br/>';
-		
 		print_r($data2);
 		echo '<br/>';
-		
 		print_r($data3);
 		echo '<br/>';
 		
