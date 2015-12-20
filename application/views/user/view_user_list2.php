@@ -31,7 +31,7 @@
 	</div>
 </div>
 
-
+Date: <input type='text' name='date' style="width:100px" value="<?php echo isset($date)?$date:date("Y-m-d"); ?>" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'});" readonly="readonly" />
 <div class="panel-body" style="float:right;width:85%">
 	<div class="table-responsive">
 		<!-- 约定：表格显示的项及次序靠$item_descs来控制 -->
