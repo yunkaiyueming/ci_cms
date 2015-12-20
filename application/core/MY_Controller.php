@@ -28,6 +28,29 @@ class MY_Controller extends CI_Controller {
 	public function get_menu_data(){
 		$menus = array(
 			array(
+				'desc' => 'PHP函数',
+				'active_pattern' => '/php_study/i',
+				'icon' => 'icon-book',
+				'level2_menus' => array(
+					array(
+						'desc' => '字符串处理',
+						'url' => 'php_study/string_demo',
+						'active_pattern' => '/php_study\/string_demo/i',
+					),
+					array(
+						'desc' => '数组处理',
+						'url' => 'php_study/array_demo',
+						'active_pattern' => '/php_study\/array_demo/i',
+					),
+					array(
+						'desc' => 'XML处理',
+						'url' => 'php_study/xml_demo',
+						'active_pattern' => '/php_study\/xml_demo/i',
+					),
+				),
+			),
+
+			array(
 				'desc' => '用户栏目',
 				'active_pattern' => '/user/i',
 				'icon' => 'icon-book',
@@ -98,6 +121,25 @@ class MY_Controller extends CI_Controller {
 				'level2_menus' => array(
 					array(
 						'desc' => '验证码',
+						'url' => 'file/get_file_by_dir',
+						'active_pattern' => '/file\/get_file_by_dir/i',
+					),
+				),
+			),
+
+			array(
+				'desc' => 'HTTP',
+				'active_pattern' => '/http/i',
+				'icon' => 'icon-book',
+				'level2_menus' => array(
+					array(
+						'desc' => 'curl示例',
+						'url' => '/get_file_by_dir',
+						'active_pattern' => '/file\/get_file_by_dir/i',
+					),
+
+					array(
+						'desc' => 'QueryList库',
 						'url' => 'file/get_file_by_dir',
 						'active_pattern' => '/file\/get_file_by_dir/i',
 					),
