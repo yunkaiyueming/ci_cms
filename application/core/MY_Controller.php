@@ -14,7 +14,7 @@ class MY_Controller extends CI_Controller {
 
 	protected function render_v2($main_file, $view_data){
 		$this->load->view('view_header', $view_data);
-		//$this->laod->view($this->$sidebar_file, $view_data);
+		$this->load->view('view_side_bar', $view_data);
 		$this->load->view($main_file, $view_data);
 		$this->load->view('view_footer');
 	}
@@ -135,14 +135,14 @@ class MY_Controller extends CI_Controller {
 				'level2_menus' => array(
 					array(
 						'desc' => 'curl示例',
-						'url' => '/get_file_by_dir',
-						'active_pattern' => '/file\/get_file_by_dir/i',
+						'url' => 'Http/http_curl',
+						'active_pattern' => '/http\/http_curl/i',
 					),
 
 					array(
 						'desc' => 'QueryList库',
-						'url' => 'file/get_file_by_dir',
-						'active_pattern' => '/file\/get_file_by_dir/i',
+						'url' => 'Http/http_query_list',
+						'active_pattern' => '/http\/http_query_list/i',
 					),
 				),
 			),

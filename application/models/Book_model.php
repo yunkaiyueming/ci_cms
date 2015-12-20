@@ -37,7 +37,7 @@ class Book_model extends MY_Model {
 
 	public function ajax_get_book_by_type($book_type) {
 		$this->db->like('type_name', $book_type);
-		$query=$this->db->get($this->table_name);
+		$query = $this->db->get($this->table_name);
 		//echo $this->db->last_query();exit;
 		return $query->result_array();
 	}
