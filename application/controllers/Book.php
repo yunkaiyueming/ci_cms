@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Book extends CI_Controller {
+class Book extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper();
@@ -11,7 +11,6 @@ class Book extends CI_Controller {
 	}
 
 	private function _check_login(){
-		session_start();
 		//print_r($_SESSION);exit;
 		if(empty($_SESSION['uid'])){
 			redirect('login/index');
@@ -29,7 +28,7 @@ class Book extends CI_Controller {
 		
 		$menus = $this->get_menu_data();
 		$view_data['menus'] = $menus;
-		
+
 		return $this->render($view_data);
 	}
 	
