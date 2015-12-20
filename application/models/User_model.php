@@ -10,8 +10,8 @@ class User_model extends MY_Model {
 
 	//查询所有数据
 	public function get_all_user_info() {
-		$order_param = array('field'=>'id', 'sort'=>'desc');
-		$data=$this->get_data_info($order_param);
+		$order_param = array('field' => 'id', 'sort' => 'desc');
+		$data = $this->get_data_info($order_param);
 		return $data;
 	}
 
