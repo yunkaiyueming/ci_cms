@@ -20,6 +20,15 @@
 			</div>
 
 			<div class="space-4"></div>
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 角色 </label>
+				<div class="col-sm-9">
+					<input type="text" name="role" placeholder="role" class="col-xs-10 col-sm-5" value=""/>
+				</div>
+			</div>
+
+			<div class="space-4"></div>
 
 			<div class="clearfix form-actions">
 				<div class="col-md-offset-3 col-md-9">

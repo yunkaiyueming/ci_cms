@@ -99,6 +99,25 @@ class File extends MY_Controller {
 			//echo $files_content;
 		}
 	}
+	
+	//若将文件夹内容打包成ZIP文件，需循环文件夹的所有目录及文件
+	function addFileToZip($path,$zip){
+	//打开当前文件夹
+	$handle=  opendir($path);
+	//为防止文件名本身可被转换为false的情况(比如为"0")，则需用不全等!==
+	while($file=  readdir($handle)!==FALSE){
+		//过滤假文件夹
+		if($file!='.'&&$file!='..'){
+			if(is_dir($path.'/'.$file)){
+				//对于子文件夹则递归调用本函数
+				addFileToZip($path.'/'.$file,$zip);
+			}else{
+				$zip->addFile($path.'/'.$file);
+			}
+		}
+	}
+	closedir($path);
+}
 
 	//下载图片
 	function file_down() {

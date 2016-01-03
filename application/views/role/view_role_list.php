@@ -11,18 +11,11 @@ Date: <input type='text' name='date' style="width:100px" value="<?php echo isset
 					<?php endforeach; ?>
 				</tr>
 			</thead>
-			<?php foreach ($user_infos as $report_item): ?>
+			<?php foreach ($role_infos as $role_info): ?>
 				<tbody>
 					<tr>
-						<td><?php echo $report_item['id'] ?></td>
-						<td><?php echo $report_item['user_name']; ?></td>
-						<td><?php echo $report_item['pwd']; ?></td>
-						<td><?php echo $report_item['roles']; ?></td>
-						<td><a href="<?php echo site_url("user/add"); ?>">添加</a>
-							<a href="<?php echo site_url("user/delete_user_info?id=$report_item[id]"); ?>">删除</a>
-							<a href="<?php echo site_url("user/update?id=$report_item[id]"); ?>">更新</a>
-							<a href="<?php echo site_url("user/allot_role?id=$report_item[id]"); ?>">分配角色</a>
-						</td>
+						<td><?php echo $role_info['id'] ?></td>
+						<td><?php echo $role_info['desc']; ?></td>
 					</tr>
 				<?php endforeach; ?>
 			</tbody>
