@@ -15,13 +15,11 @@ Date: <input type='text' name='date' style="width:100px" value="<?php echo isset
 				<tbody>
 					<tr>
 						<td><?php echo $report_item['id'] ?></td>
-						<td><?php echo $report_item['user_name']; ?></td>
-						<td><?php echo $report_item['pwd']; ?></td>
-						<td><?php echo $report_item['roles']; ?></td>
-						<td><a href="<?php echo site_url("user/add"); ?>">添加</a>
-							<a href="<?php echo site_url("user/delete_user_info?id=$report_item[id]"); ?>">删除</a>
-							<a href="<?php echo site_url("user/update?id=$report_item[id]"); ?>">更新</a>
-							<a href="<?php echo site_url("user/allot_role?id=$report_item[id]"); ?>">分配角色</a>
+						<td><?php echo $report_item['modle_name']; ?></td>
+						<td><?php echo $report_item['modle_desc']; ?></td>
+						<td><a href="<?php echo site_url("models/add"); ?>">添加</a>
+							<a href="<?php echo site_url("models/delete_model_info?id=$report_item[id]"); ?>">删除</a>
+							<a href="<?php echo site_url("models/update?id=$report_item[id]"); ?>">更新</a>
 						</td>
 					</tr>
 				<?php endforeach; ?>

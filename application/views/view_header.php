@@ -91,7 +91,7 @@
 
 						<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 							<li>
-								<a href="<?php echo site_url("login/update_password"); ?>">
+								<a href="<?php echo site_url("login/sitefunction"); ?>">
 									<i class="icon-cog"></i>
 									Settings
 								</a>
