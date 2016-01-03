@@ -7,6 +7,11 @@ class Book extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper();
+		$this->_check_login();
+	}
+	
+	public function index(){
+		$this->get_book_infos();
 	}
 
 	public function get_book_infos() {

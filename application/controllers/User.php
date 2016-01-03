@@ -20,11 +20,30 @@ class User extends MY_Controller {
 	public function get_user_infos() {
 		$this->load->model('User_model');
 		$user_infos = $this->User_model->get_all_user_info();
+		
+		//处理角色信息
+		$this->load->config('role');
+		$config_role_infos = $this->config->item('role');
+
+		foreach($user_infos as &$user_info){
+			$roles_temp="";
+			$user_roles_arr = explode(";", $user_info['roles']);
+			foreach($user_roles_arr as $role_id){
+				foreach($config_role_infos as $config_role_info){
+					if($role_id==$config_role_info['id']){
+						$roles_temp .= $config_role_info['desc'].', ';
+					}
+				}
+			}
+			
+			$user_info['roles']= substr($roles_temp, 0, -2) ;
+		}
+		
 		$view_data['user_infos'] = $user_infos;
-		$item_descs = array('id' => 'id', 'name' => '用户名', 'pwd' => '方法', 'ope' => '操作');
+		$item_descs = array('id' => 'id', 'name' => '用户名', 'pwd' => '密码','role'=>'角色', 'ope' => '操作');
 		$view_data['item_descs'] = $item_descs;
 		$view_data['title_name'] = '用户管理';
-		$menus = $this->get_menu_data();
+		$menus = $this->get_menu_data1();
 		$view_data['menus'] = $menus;
 		return $this->render_v2('user/view_user_list2', $view_data);
 	}
@@ -33,7 +52,7 @@ class User extends MY_Controller {
 		$this->load->helper('url');
 		$this->load->model('User_model');
 		$view_data['title_name'] = '用户管理';
-		$menus = $this->get_menu_data();
+		$menus = $this->get_menu_data1();
 		$view_data['menus'] = $menus;
 		$this->render_v2('user/view_user_add', $view_data);
 	}
@@ -44,6 +63,7 @@ class User extends MY_Controller {
 		$view_data = array(
 			'user_name' => $this->security->xss_clean($_POST['user_name']),
 			'pwd' => htmlspecialchars($_POST['pwd']),
+			'roles'=>htmlspecialchars($_POST['role']),
 		);
 
 		$this->load->model('User_model');
@@ -68,7 +88,7 @@ class User extends MY_Controller {
 		$this->load->model('User_model');
 		$view_data['user_info'] = $this->User_model->get_user_info_byid($_GET['id']);
 		$view_data['title_name'] = '用户管理';
-		$menus = $this->get_menu_data();
+		$menus = $this->get_menu_data1();
 		$view_data['menus'] = $menus;
 		return $this->render_v2('user/view_user_update', $view_data);
 	}
@@ -110,6 +130,35 @@ class User extends MY_Controller {
 		echo '<br/>';
 		print_r($data3);
 		echo '<br/>';
+	}
+	
+	//给用户分配角色
+	function allot_role(){
+		//查询该用户已经分配的角色
+		$this->load->model('User_model');
+		$user_has_role_info=$this->User_model->get_roles_by_uid($_GET['id']);
+		$user_str_has_role=  str_replace(";", "#", $user_has_role_info['roles'])  ;
+		$this->config->load('role');
+		$view_data['role_infos'] = $this->config->item('role');
+		$view_data['menus']=$this->get_menu_data1();
+		$view_data['user_str_has_role']=$user_str_has_role;
+		return $this->render_v3('role/view_allot_role', $view_data);
+	}
+	
+	function add_user_role(){
+		$id=$_POST['userid'];
+		$roles_infos=$_POST['check_role'];
+		$data="";
+		foreach ($roles_infos as $role_info){
+			$data=$data.$role_info.";";
+		}
+		$this->load->model('User_model');
+		$refletion=$this->User_model->add_user_role($id,$data);
+		$this->get_user_infos();
+	}
+	
+	function test_get_modles_by_uid(){
+		$this->get_all_models_by_uid('3');
 	}
 
 }

@@ -10,7 +10,7 @@ class User_model extends MY_Model {
 
 	//查询所有数据
 	public function get_all_user_info() {
-		$order_param = array('field' => 'id', 'sort' => 'desc');
+		$order_param = array('field' => 'id', 'sort' => 'asc');
 		$data = $this->get_data_info($order_param);
 		return $data;
 	}
@@ -68,5 +68,18 @@ class User_model extends MY_Model {
 		$query = $this->db->get_where($this->table_name, $data);
 		return $query->row_array();
 	}
-
+	
+	public function add_user_role($id,$roles){
+		$this->db->set('roles', $roles);
+        $this->db->where('id', $id);
+        $this->db->update($this->table_name); 
+		
+	}
+	
+	public function get_roles_by_uid($uid){
+		$this->db->select("roles")->from($this->table_name)->where('id', $uid);
+		$info = $this->db->get()->row_array();
+		//print_r($info);
+		return $info;
+	}
 }

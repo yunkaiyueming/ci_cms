@@ -28,7 +28,7 @@ class Login extends MY_Controller {
 		if (!empty($exist_res) && (strtolower($check_code) == strtolower($_SESSION['check_code']))) {
 			$_SESSION['uid'] = $exist_res['id'];
 			$_SESSION['user_name'] = $exist_res['user_name'];
-			redirect('user/index');
+			redirect('book/index');
 		} else {
 			$view_data['error'] = 'user or pwd is wrong';
 			$this->render_v2('login/view_login', $view_data);
@@ -40,6 +40,22 @@ class Login extends MY_Controller {
 			session_destroy();
 		}
 		redirect('login/index');
+	}
+	
+	function sitefunction(){
+		$this->load->model('User_model');
+		$user_infos = $this->User_model->get_all_user_info();
+		$view_data['user_infos'] = $user_infos;
+		$item_descs = array('id' => 'id', 'name' => '用户名', 'pwd' => '密码','role'=>'角色', 'ope' => '操作');
+		$view_data['item_descs'] = $item_descs;
+		$view_data['title_name'] = '用户管理';
+		//$menus = $this->get_menu_data1();
+		$view_data['menus'] = $menus;
+		//return $this->render_v2('user/view_user_list2', $view_data);
+		
+		$this->config->load('manage_center');
+		$view_data['menus']=$this->get_menu_data1();
+		$this->render_v3('user/view_user_list2', $view_data);
 	}
 
 }
