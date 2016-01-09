@@ -37,7 +37,6 @@ class Book extends MY_Controller {
 	public function add_book_info() {
 		$this->load->helper('url');
 		$view_data = array(
-			//'id'=>$_POST['id'],
 			'book_name' => $_POST['book_name'],
 			'type_name' => $_POST['type_name'],
 			'author' => $_POST['author'],

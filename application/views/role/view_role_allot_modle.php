@@ -15,7 +15,20 @@
 				</div>
 			</div>
 			<div class="space-4"></div>
+			
+			
+			
+			<div class="form-group">
+				<div class="col-sm-9">
+					
+					<lable>全选</lable>
+					<input type="checkbox" id="input_select_all" > 
+					</select>
+				</div>
+			</div>
+			<div class="space-4"></div>
            
+			
 			
 			<div class="form-group">
 				<div class="col-sm-9">
@@ -41,6 +54,17 @@
 		</form>
 
 	</div></div>
+<script>
+	$(function() {
+           $("#input_select_all").click(function() {
+                $('input[name="checkbox_modle[]"]').prop("checked",this.checked);
+            });
+            var $subBox = $("input[name='checkbox_modle[]']");
+            $subBox.click(function(){
+                $("#input_select_all").prop("checked",$subBox.length == $("input[name='checkbox_modle[]']:checked").length ? true : false);
+            });
+        });
+</script>
 
 
 
