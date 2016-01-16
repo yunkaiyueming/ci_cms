@@ -233,6 +233,21 @@ class MY_Controller extends CI_Controller {
 		for ($p = 0; $p < count($modle_query_res); $p++) {
 			$modles_infos.=$modle_query_res[$p]['modle_name'] . ";";
 		}
-		echo $modles_infos;
+		$datas['modles_names'] = $modles_infos;
+		$datas['modles_ids'] = $modle_id_res;
+		return $datas;
 	}
+
+	//判断一个用户，是否有某一个权限
+	public function is_user_has_modle($userid, $modleid) {
+		$modle_infos = $this->get_all_models_by_uid($userid);
+		//判断给定的权限是否在这个用户的权限列表中
+		$arr_modle_id = $modle_infos['modles_ids'];
+		if (in_array($modleid, $arr_modle_id)) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
 }
