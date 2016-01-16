@@ -63,7 +63,35 @@
             $subBox.click(function(){
                 $("#input_select_all").prop("checked",$subBox.length == $("input[name='checkbox_modle[]']:checked").length ? true : false);
             });
+			$("#input_select_all").prop("checked",$subBox.length == $("input[name='checkbox_modle[]']:checked").length ? true : false);
         });
+		
+	//ajax请求，异步获取角色的权限
+	$(function(){
+		$("#select_role").change(function(){
+			var roleid_var=$("#select_role").val();
+			$.post("<?php echo site_url('Role/get_modle_by_roleid')?>",{"roleid": roleid_var},
+			function(data){
+			    //data:{"modle_infos":[{"mode_ids":"1;2;3;4;"}]}
+				var fun_json_obj=JSON.parse(data);
+				var modle_ids=fun_json_obj.modle_infos[0].mode_ids;
+				modle_id=[];
+				modle_id=modle_ids.split(';');
+				
+				$("input[type=checkbox][name='checkbox_modle[]']").prop("checked", false);
+				for(var i=0;i<modle_id.length;i++){
+					 $("input[type=checkbox][name='checkbox_modle[]'][value='" + modle_id[i] + "']").prop("checked", true);  
+				}
+				if((modle_id.length-1)==$("input[name='checkbox_modle[]']").length){
+					$("#input_select_all").prop("checked", true);
+				}
+				else{
+					$("#input_select_all").prop("checked", false);
+				}
+				
+			});
+		});
+	});
 </script>
 
 
