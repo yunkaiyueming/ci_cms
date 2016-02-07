@@ -26,7 +26,7 @@ class Models extends MY_Controller {
 		//$view_data['title_name'] = '用户管理';
 		$menus = $this->get_menu_data1();
 		$view_data['menus'] = $menus;
-		return $this->render_v3('modle/view_modle_list', $view_data);
+		return $this->render('modle/view_modle_list', $view_data);
 	}
 
 	public function add() {
@@ -35,7 +35,7 @@ class Models extends MY_Controller {
 		//$view_data['title_name'] = '用户管理';
 		$menus = $this->get_menu_data1();
 		$view_data['menus'] = $menus;
-		$this->render_v3('modle/view_model_add', $view_data);
+		$this->render('modle/view_model_add', $view_data);
 	}
 
 	public function add_model_info() {
@@ -70,7 +70,7 @@ class Models extends MY_Controller {
 		//$view_data['title_name'] = '用户管理';
 		$menus = $this->get_menu_data1();
 		$view_data['menus'] = $menus;
-		return $this->render_v3('modle/view_modle_update', $view_data);
+		return $this->render('modle/view_modle_update', $view_data);
 	}
 
 	public function update_model_info() {
@@ -117,7 +117,7 @@ class Models extends MY_Controller {
 		$this->config->load('role');
 		$view_data['role_infos'] = $this->config->item('role');
 		$view_data['menus']=$this->get_menu_data1();
-		return $this->render_v3('role/view_allot_role', $view_data);
+		return $this->render('role/view_allot_role', $view_data);
 	}
 	
 	function add_user_role(){

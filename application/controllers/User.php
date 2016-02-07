@@ -1,9 +1,7 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends MY_Controller {
-
+			
 	public function __construct() {
 		parent::__construct();
 		$this->_check_login();
@@ -45,7 +43,7 @@ class User extends MY_Controller {
 		$view_data['title_name'] = '用户管理';
 		$menus = $this->get_menu_data1();
 		$view_data['menus'] = $menus;
-		return $this->render_v2('user/view_user_list2', $view_data);
+		return $this->render('user/view_user_list2', $view_data);
 	}
 
 	public function add() {
@@ -54,7 +52,7 @@ class User extends MY_Controller {
 		$view_data['title_name'] = '用户管理';
 		$menus = $this->get_menu_data1();
 		$view_data['menus'] = $menus;
-		$this->render_v2('user/view_user_add', $view_data);
+		$this->render('user/view_user_add', $view_data);
 	}
 
 	public function add_user_info() {
@@ -90,7 +88,7 @@ class User extends MY_Controller {
 		$view_data['title_name'] = '用户管理';
 		$menus = $this->get_menu_data1();
 		$view_data['menus'] = $menus;
-		return $this->render_v2('user/view_user_update', $view_data);
+		return $this->render('user/view_user_update', $view_data);
 	}
 
 	public function update_user_info() {
@@ -142,7 +140,7 @@ class User extends MY_Controller {
 		$view_data['role_infos'] = $this->config->item('role');
 		$view_data['menus']=$this->get_menu_data1();
 		$view_data['user_str_has_role']=$user_str_has_role;
-		return $this->render_v3('role/view_allot_role', $view_data);
+		return $this->render('role/view_allot_role', $view_data);
 	}
 	
 	function add_user_role(){

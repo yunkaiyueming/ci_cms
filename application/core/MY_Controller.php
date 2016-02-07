@@ -5,11 +5,10 @@ if (!defined('BASEPATH'))
 
 class MY_Controller extends CI_Controller {
 
-	public $sidebar_file = "";
+	public $sidebar_file = "view_common_sidebar";
 	public $main_file = "";
 
 	public function __construct() {
-		//error_reporting(0);
 		parent::__construct();
 		session_start();
 
@@ -17,31 +16,31 @@ class MY_Controller extends CI_Controller {
 		$this->load->model('User_model');
 		$this->load->model('Function_model');
 		$this->load->model('Models_model');
-		$this->load->model('');
+
 		error_reporting(E_ALL ^ E_NOTICE);
 	}
 
-	protected function render_v2($main_file, $view_data) {
+	protected function render($main_file, $view_data){
 		$this->load->view('view_header', $view_data);
-		$this->load->view('view_side_bar', $view_data);
+		if(!empty($this->sidebar_file)){
+			$this->load->view($this->sidebar_file, $view_data);
+		}
 		$this->load->view($main_file, $view_data);
 		$this->load->view('view_footer');
 	}
 
-	protected function render_v3($main_file, $view_data) {
-		$this->load->view('view_header', $view_data);
-		$this->load->view('view_side_bar_1', $view_data);
-		$this->load->view($main_file, $view_data);
-		$this->load->view('view_footer');
-	}
 
 	public function _check_login() {
 		if (empty($_SESSION['uid'])) {
 			redirect('login/index');
 		}
 	}
-
-	public function get_menu_data() {
+	
+	public function get_menu_by_user_id(){
+		
+	}
+	
+	private function _get_all_menu_data() {
 		$menus = array(
 			array(
 				'desc' => 'PHP函数',

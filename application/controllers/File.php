@@ -40,7 +40,7 @@ class File extends MY_Controller {
 		$menus = $this->get_menu_data();
 		$view_data['menus'] = $menus;
 		$view_data['file_infos'] = $file_infos;
-		return $this->render_v2('file/view_file_list', $view_data);
+		return $this->render('file/view_file_list', $view_data);
 	}
 
 	//迭代得到一个目录下的所有的文件
@@ -75,7 +75,7 @@ class File extends MY_Controller {
 	function file_post() {
 		$menus = $this->get_menu_data();
 		$view_data['menus'] = $menus;
-		$this->render_v2('file/view_dropzone', $view_data);
+		$this->render('file/view_dropzone', $view_data);
 	}
 
 	//处理上传好的文件（把文件移到自定义的位置，对文件进行所有需要的处理操作）

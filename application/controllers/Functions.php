@@ -21,7 +21,7 @@ class Functions extends MY_Controller {
 		$this->config->load('role');
 		$view_data['role_infos'] = $this->config->item('role');
 		$view_data['menus'] = $this->get_menu_data1();
-		return $this->render_v3('role/view_allot_role', $view_data);
+		return $this->render('role/view_allot_role', $view_data);
 	}
 
 	function add_user_role() {
@@ -50,7 +50,7 @@ class Functions extends MY_Controller {
 		$modle_info = $this->Models_model->get_all_modle_info();
 		$view_data['modle_infos'] = $modle_info;
 		$view_data['menus'] = $this->get_menu_data1();
-		return $this->render_v3('role/view_role_allot_modle', $view_data);
+		return $this->render('role/view_role_allot_modle', $view_data);
 	}
 
 	function add_function_role_modle() {
@@ -118,7 +118,7 @@ class Functions extends MY_Controller {
 		$view_data['item_descs'] = $item_descs;
 		$menus = $this->get_menu_data1();
 		$view_data['menus'] = $menus;
-		return $this->render_v3('function/view_function_list2', $view_data);
+		return $this->render('function/view_function_list2', $view_data);
 	}
 
 }

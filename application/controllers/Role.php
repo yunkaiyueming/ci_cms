@@ -26,7 +26,7 @@ class Role extends MY_Controller {
 		//$view_data['title_name'] = '用户管理';
 		$menus = $this->get_menu_data1();
 		$view_data['menus'] = $menus;
-		return $this->render_v2('role/view_role_list', $view_data);
+		return $this->render('role/view_role_list', $view_data);
 	}
 	
 	public function get_modle_by_roleid(){
