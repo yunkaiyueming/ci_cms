@@ -3,7 +3,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Book extends MY_Controller {
-
+			
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper();
@@ -18,15 +18,24 @@ class Book extends MY_Controller {
 		$this->load->helper('url');
 		$this->load->model('Book_model');
 		$this->config->load('book_type');
+		
 		$book_infos = $this->Book_model->get_all_book_info();
-		$view_data['book_infos'] = $book_infos;
-		$item_descs = array('id' => 'id', 'book_name' => '书名', 'type_name' => '类型名', 'author' => '作者', 'publish_date' => '出版日期', 'ope' => '操作');
-		$view_data['item_descs'] = $item_descs;
-		//$view_data['title_name'] = '用户管理';
-		$view_data['book_type']=$this->config->item('book_type');
 		$menus = $this->get_menu_data();
+		$item_descs = array(
+			'id' => 'id', 
+			'book_name' => '书名', 
+			'type_name' => '类型名', 
+			'author' => '作者', 
+			'publish_date' => '出版日期', 
+			'ope' => '操作'
+		);
+		
+		$view_data['book_infos'] = $book_infos;
+		$view_data['item_descs'] = $item_descs;
+		$view_data['book_type']=$this->config->item('book_type');
 		$view_data['menus'] = $menus;
-		return $this->render_v2('book/view_book_list2', $view_data);
+		
+		return $this->render('book/view_book_list2', $view_data);
 	}
 
 	public function add() {
@@ -37,7 +46,6 @@ class Book extends MY_Controller {
 	public function add_book_info() {
 		$this->load->helper('url');
 		$view_data = array(
-			//'id'=>$_POST['id'],
 			'book_name' => $_POST['book_name'],
 			'type_name' => $_POST['type_name'],
 			'author' => $_POST['author'],

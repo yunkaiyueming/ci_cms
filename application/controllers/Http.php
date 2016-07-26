@@ -14,7 +14,7 @@ class Http extends MY_Controller {
 		$url = "http://www.baidu.com";
 		$data['info'] = get_file_curl($url);
 		$data['menus'] = $this->get_menu_data();
-		$this->render_v2('http/view_http_curl', $data);
+		$this->render('http/view_http_curl', $data);
 	} 
 	
 	public function http_query_list(){
@@ -29,7 +29,7 @@ class Http extends MY_Controller {
 		$data['infos'] = CommonQueryList::http_query_list($url, $reg, $rang);
 		
 		$data['menus'] = $this->get_menu_data();
-		return $this->render_v2('http/view_http_query_list', $data);
+		return $this->render('http/view_http_query_list', $data);
 	}
 
 }

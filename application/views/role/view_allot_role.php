@@ -31,6 +31,7 @@
 			$("input[type=checkbox][name='check_role[]'][value='" + role_id[i] + "']").attr("checked", true); 
 		}
 	})
+	
 </script>
 
 

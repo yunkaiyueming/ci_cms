@@ -3,7 +3,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends MY_Controller {
-
+	public $sidebar_file = '';
+	
 	public function __construct() {
 		parent::__construct();
 		error_reporting(0);
@@ -14,7 +15,7 @@ class Login extends MY_Controller {
 
 	function index() {
 		if(empty($_SESSION['uid'])){
-			return $this->render_v2('login/view_login');
+			return $this->render('login/view_login');
 		}else{
 			redirect('user/get_user_infos');
 		}
@@ -31,7 +32,7 @@ class Login extends MY_Controller {
 			redirect('book/index');
 		} else {
 			$view_data['error'] = 'user or pwd is wrong';
-			$this->render_v2('login/view_login', $view_data);
+			$this->render('login/view_login', $view_data);
 		}
 	}
 
@@ -43,6 +44,7 @@ class Login extends MY_Controller {
 	}
 	
 	function sitefunction(){
+		$this->sidebar_file = 'view_common_sidebar';
 		$this->load->model('User_model');
 		$user_infos = $this->User_model->get_all_user_info();
 		$view_data['user_infos'] = $user_infos;
@@ -51,11 +53,11 @@ class Login extends MY_Controller {
 		$view_data['title_name'] = '用户管理';
 		//$menus = $this->get_menu_data1();
 		$view_data['menus'] = $menus;
-		//return $this->render_v2('user/view_user_list2', $view_data);
+		//return $this->render('user/view_user_list2', $view_data);
 		
 		$this->config->load('manage_center');
 		$view_data['menus']=$this->get_menu_data1();
-		$this->render_v3('user/view_user_list2', $view_data);
+		$this->render('user/view_user_list2', $view_data);
 	}
 
 }
